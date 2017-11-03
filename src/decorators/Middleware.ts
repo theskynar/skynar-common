@@ -6,7 +6,7 @@ export function Middleware(middleware: Function) {
 
       try {
         let response = middleware(req, res);
-        if(!response) return res.end();
+        if(response === false) return res.status(500).send();
 
         original.apply(this, [req, res]);
       }
