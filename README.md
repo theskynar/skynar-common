@@ -67,6 +67,9 @@ The middleware decorator receive required function param. This function receive 
 
 If function return **false** or throw Error, the original function is not called, in other cases the original function is called normaly.
 
+**Support**: Class and Methods!
+**Important: The class middleware is executed first of methods middleware**
+
 ```typescript
 function Auth(req: Express.Request, res: Express.Response) {
   if(!req.header['token']) {
