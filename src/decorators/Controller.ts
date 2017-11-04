@@ -2,9 +2,9 @@ import { decorate, injectable } from "inversify"
 import "reflect-metadata";
 
 export function Controller (baseUrl: string = '') {
-  return function(target) {
+  return function(constructor) {
     // Save target
-    let original = target;
+    let original = constructor;
     // Increment properties
     original.prototype._baseRoute = baseUrl;
     if(!original.prototype._routes) original.prototype._routes = [];

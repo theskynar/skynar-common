@@ -1,21 +1,11 @@
+import { MethodMiddlewareFactory } from "../helpers/MethodMiddlewareFactory";
+import { ClassMiddlewareFactory } from "../helpers/ClassMiddlewareFactory";
+
 export function Middleware(middleware: Function) {
-  return function(target: any, propertyKey: any, descriptor: PropertyDescriptor) { 
-    let original = descriptor.value;
+  return function(target: any, propertyKey?: any, descriptor?: PropertyDescriptor) { 
+    
+    if(descriptor) return MethodMiddlewareFactory(target, propertyKey, descriptor, middleware);
+    else return ClassMiddlewareFactory(target, middleware);
 
-    descriptor.value = function (req, res) {
-
-      try {
-        let response = middleware(req, res);
-        if(response === false) return res.status(500).send();
-
-        original.apply(this, [req, res]);
-      }
-      catch(err){
-        res.status(err.status || 500).send(err.message || err);
-      }
-
-    }
-
-    return descriptor;
   }
 }

@@ -5,7 +5,7 @@ export function RouteDecotatorFactory(method: string, path: string, target: any,
   if(!target.constructor.prototype._routes) target.constructor.prototype._routes = [];
   let route: IRoute = {
     handler: propertyKey,
-    method: 'get',
+    method: method,
     path: path
   };
   target.constructor.prototype._routes.push(route);
